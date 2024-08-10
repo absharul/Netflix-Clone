@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:netlix_clone/Common/utils.dart';
 
+import '../Model/upcoming_model.dart';
+import '../Services/app_services.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -9,6 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late Future<UpcomingMovieModel> upcomingFuture;
+  ApiServices apiServices = ApiServices();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    upcomingFuture = apiServices.getUpcomingMovies();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
