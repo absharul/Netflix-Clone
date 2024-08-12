@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netlix_clone/Common/utils.dart';
+import 'package:netlix_clone/widgets/movie_card_widget.dart';
 
 import '../Model/upcoming_model.dart';
 import '../Services/app_services.dart';
@@ -22,8 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     upcomingFuture = apiServices.getUpcomingMovies();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 20.0)
           ],
         ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+                height: 220,
+                child: MovieCardWidget
+                  (future: upcomingFuture,
+                    headlineText: "Upcoming Movies",
+                )
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

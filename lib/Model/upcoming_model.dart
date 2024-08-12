@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final upcomingMovieModel = upcomingMovieModelFromJson(jsonString);
-
 import 'dart:convert';
 
 UpcomingMovieModel upcomingMovieModelFromJson(String str) => UpcomingMovieModel.fromJson(json.decode(str));
@@ -130,12 +126,14 @@ class Result {
 
 enum OriginalLanguage {
   EN,
+  HI,
   JA,
   KO
 }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
+  "hi": OriginalLanguage.HI,
   "ja": OriginalLanguage.JA,
   "ko": OriginalLanguage.KO
 });

@@ -16,7 +16,7 @@ class ApiServices {
     try {
       endPoint = "movie/upcoming";
       final url = "$baseUrl$endPoint$key";
-
+      debugPrint(url);
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
