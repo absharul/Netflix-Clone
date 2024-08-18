@@ -32,4 +32,25 @@ class ApiServices {
       rethrow;
     }
   }
+
+  Future<UpcomingMovieModel> getNowPlaying() async {
+    try {
+      endPoint = "movie/now_playing";
+      final url = "$baseUrl$endPoint$key";
+      debugPrint(url);
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        debugPrint("Success");
+
+        return UpcomingMovieModel.fromJson(jsonDecode(response.body));
+
+      } else {
+        throw Exception("Failed to load Now Playing movies: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      debugPrint("Error occurred: $e");
+      rethrow;
+    }
+  }
 }

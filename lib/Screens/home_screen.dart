@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   late Future<UpcomingMovieModel> upcomingFuture;
+  late Future<UpcomingMovieModel> nowPlayingFuture;
+
   ApiServices apiServices = ApiServices();
 
   @override
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     upcomingFuture = apiServices.getUpcomingMovies();
+    nowPlayingFuture = apiServices.getNowPlaying();
   }
 
   @override
@@ -58,6 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+                height: 220,
+                child: MovieCardWidget
+                  (future: nowPlayingFuture,
+                  headlineText: "Now Playing",
+                )
+            ),
             SizedBox(
                 height: 220,
                 child: MovieCardWidget

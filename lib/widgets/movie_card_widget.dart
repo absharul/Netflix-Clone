@@ -19,14 +19,17 @@ class MovieCardWidget extends StatelessWidget {
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var data = snapshot.data!.results;
+            var data = snapshot.data?.results;
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 5,),
-                  Text(
-                    headlineText,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      headlineText,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   const SizedBox(
                     height: 10.0,
@@ -34,9 +37,9 @@ class MovieCardWidget extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      // padding: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.all(3),
                       scrollDirection: Axis.horizontal,
-                      itemCount: data.length,
+                      itemCount: data!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                             padding: const EdgeInsets.all(5.0),
