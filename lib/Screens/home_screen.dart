@@ -1,5 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:netlix_clone/Common/utils.dart';
+import 'package:netlix_clone/Model/topratedtvseries_model.dart';
+import 'package:netlix_clone/widgets/custom_carousel.dart';
 import 'package:netlix_clone/widgets/movie_card_widget.dart';
 
 import '../Model/upcoming_model.dart';
@@ -16,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late Future<UpcomingMovieModel> upcomingFuture;
   late Future<UpcomingMovieModel> nowPlayingFuture;
+  late Future<TopRatedTvSeries>    topRatedTvFuture;
 
   ApiServices apiServices = ApiServices();
 
@@ -25,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     upcomingFuture = apiServices.getUpcomingMovies();
     nowPlayingFuture = apiServices.getNowPlaying();
+    topRatedTvFuture = apiServices.getTopRatedTvSeries();
   }
 
   @override
@@ -33,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Kbackgroundcolor,
         appBar: AppBar(
           backgroundColor: Kbackgroundcolor,
-          title: Image.asset("assets/main_logo.jpg",
+          title: Image.asset("assets/netfli_main_logo.png",
             height: 100,
             width: 150,
           ),
@@ -59,8 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: [
+            const SizedBox(height: 20,),
+            FutureBuilder(
+                future: topRatedTvFuture,
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    return CustomCarouselSlider(data: snapshot.data!);
+                  }else{
+                    return const SizedBox.shrink();
+                  }
+                }
+            ),
             SizedBox(
                 height: 220,
                 child: MovieCardWidget
