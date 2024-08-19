@@ -25,7 +25,10 @@ class CustomCarouselSlider extends StatelessWidget {
                children: [
                  CachedNetworkImage(imageUrl: "$imageUrl$url",),
                  const SizedBox(height: 20,),
-                 Text(data.results[index].name)
+                 Text(data.results[index].name,
+                   style: const TextStyle(
+                   fontSize: 20
+                 ),)
                ]
              )
            );

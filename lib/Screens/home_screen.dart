@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:netlix_clone/Common/utils.dart';
 import 'package:netlix_clone/Model/topratedtvseries_model.dart';
+import 'package:netlix_clone/Screens/search_screen.dart';
 import 'package:netlix_clone/widgets/custom_carousel.dart';
 import 'package:netlix_clone/widgets/movie_card_widget.dart';
 
@@ -45,7 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             Padding(padding: const EdgeInsets.only(right: 20.0),
             child: IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ),
+                );
+              },
               icon: const Icon(Icons.search,color: Colors.white,
                 size: 30,
               ),
