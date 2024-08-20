@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:netlix_clone/Common/utils.dart';
+import 'package:netlix_clone/Model/movierecommendation_model.dart';
 import 'package:netlix_clone/Model/searchmovie_model.dart';
 import 'package:netlix_clone/Model/topratedtvseries_model.dart';
 import '../Model/upcoming_model.dart';
@@ -75,31 +76,30 @@ class ApiServices {
     }
   }
 
-  //Search Movie Model
+  //recommendation model
 
-  // Future<SearchMovieModel> searchMovies(String searchText) async {
-  //   try {
-  //     endPoint = "search/movie?query=$searchText";
-  //     final url = "$baseUrl$endPoint";
-  //     debugPrint(url);
-  //     final response = await http.get(Uri.parse(url),
-  //       headers: {
-  //       'Authorization':
-  //           " Bearer $barerToken",});
-  //
-  //     if (response.statusCode == 200) {
-  //       debugPrint("Success");
-  //
-  //       return SearchMovieModel.fromJson(jsonDecode(response.body));
-  //
-  //     } else {
-  //       throw Exception("Failed to load Search Movies: ${response.reasonPhrase}");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error occurred: $e");
-  //     rethrow;
-  //   }
-  // }
+  Future<MovieRecommendationModel> getRecommedationMovies() async {
+    try {
+      endPoint = "movie/792307/recommendations";
+      final url = "$baseUrl$endPoint$key";
+      debugPrint(url);
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        debugPrint("Success");
+
+        return MovieRecommendationModel.fromJson(jsonDecode(response.body));
+
+      } else {
+        throw Exception("Failed to load Recommededation Movies: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      debugPrint("Error occurred: $e");
+      rethrow;
+    }
+  }
+
+  //search Movies
 
   Future<SearchMovieModel?> searchMovies(String searchText) async {
     try {
@@ -114,7 +114,7 @@ class ApiServices {
       if (response.statusCode == 200) {
         debugPrint("Success");
         final jsonResponse = jsonDecode(response.body);
-        debugPrint("API Response: $jsonResponse"); // Print the response for debugging
+        // debugPrint("API Response: $jsonResponse"); // Print the response for debugging
         return SearchMovieModel.fromJson(jsonResponse);
       } else {
         throw Exception("Failed to load Search Movies: ${response.reasonPhrase}");
