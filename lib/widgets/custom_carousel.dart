@@ -13,7 +13,8 @@ class CustomCarouselSlider extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
-      height: (size.height * 0.33 < 300) ? 300 : size.height * 0.33,
+      height: 270,
+      // height: (size.height * 0.33 < 300) ? 300 : size.height * 0.33,
       child: CarouselSlider.builder(
           itemCount: data.results.length,
           itemBuilder: (BuildContext context, int index, int RealIndex){
@@ -22,10 +23,32 @@ class CustomCarouselSlider extends StatelessWidget {
            return GestureDetector(
              child:
              Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
                children: [
-                 CachedNetworkImage(imageUrl: "$imageUrl$url",),
+                 const SizedBox(height: 5.0,),
+                 CachedNetworkImage(imageUrl: "$imageUrl$url",
+                   imageBuilder: (context, imageProvider) => Container(
+                     height: 180,
+                     width: 320,
+                     decoration: BoxDecoration(
+                       borderRadius: const BorderRadius.all(Radius.circular(10),),
+                       image: DecorationImage(
+                         image: imageProvider,
+                         fit: BoxFit.cover,
+                       ),
+                         boxShadow: const [
+                           BoxShadow(
+                             offset: Offset.zero,
+                             blurRadius: 100,
+                             color: Color(0xff720101),
+                             blurStyle: BlurStyle.solid
+                           )
+                         ]),
+                     ),
+                   ),
                  const SizedBox(height: 20,),
                  Text(data.results[index].name,
+                   overflow: TextOverflow.ellipsis,
                    style: const TextStyle(
                    fontSize: 20
                  ),)

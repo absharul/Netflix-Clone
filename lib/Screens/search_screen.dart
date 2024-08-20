@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:netlix_clone/Common/utils.dart';
 import 'package:netlix_clone/Model/movierecommendation_model.dart';
 import 'package:netlix_clone/Model/searchmovie_model.dart';
@@ -89,27 +92,41 @@ class _SearchScreenState extends State<SearchScreen> {
                      shrinkWrap: true,
                      itemCount: searchMovieModel!.results.length,
                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                     crossAxisCount: 3,
-                     mainAxisSpacing: 15,
-                     crossAxisSpacing: 5,
-                     childAspectRatio: 1.2/2),
+                     crossAxisCount: 2,
+                       crossAxisSpacing: 5,
+                       mainAxisSpacing: 5,
+                       childAspectRatio: 1.2
+                     ),
                      itemBuilder: (context, index){
                        final movie = searchMovieModel!.results[index];
                        return Column(
+                         crossAxisAlignment: CrossAxisAlignment.center,
+                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           searchMovieModel!.results[index].backdropPath == null ?
-                              Image.asset("assets/netflix_logo.jpg",height: 170,)
-                          : CachedNetworkImage(
-                            imageUrl: "$imageUrl${movie.backdropPath}",
-                            height: 170,
-                            placeholder: (context, url) => const Center(
-                              child: CircularProgressIndicator(),
-                            ) ,
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.error,
-                              color: Colors.red,
+                              Image.asset("assets/netflix_logo.jpg",)
+                          :   CachedNetworkImage(
+                              imageUrl: "$imageUrl${movie.backdropPath}",
+                              imageBuilder: (context, imageProvider) => Container(
+                              height: 100,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(Radius.circular(10),),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ) ,
+                              errorWidget: (context, url, error) => const Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
+                            ),
+                          const SizedBox(height: 5.0,),
                           SizedBox(
                             width: 100,
                             child: Text(
