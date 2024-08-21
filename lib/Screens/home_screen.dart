@@ -75,16 +75,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             const SizedBox(height: 20,),
-            FutureBuilder(
-                future: topRatedTvFuture,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return CustomCarouselSlider(data: snapshot.data!);
-                  }else{
-                    return const SizedBox.shrink();
+             FutureBuilder(
+                  future: topRatedTvFuture,
+                  builder: (context, snapshot){
+                    if(snapshot.hasData){
+                      return CustomCarouselSlider(data: snapshot.data!);
+                    }else{
+                      return const SizedBox.shrink();
+                    }
                   }
-                }
-            ),
+              ),
             SizedBox(
                 height: 220,
                 child: MovieCardWidget

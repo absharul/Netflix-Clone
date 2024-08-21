@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:netlix_clone/Model/movierecommendation_model.dart';
+import 'package:netlix_clone/widgets/moviedetail_screen.dart';
 
 import '../Common/utils.dart';
 
@@ -32,43 +34,34 @@ class RecommedationMovies extends StatelessWidget {
                            itemBuilder: (context, index) {
                              return Padding(
                                padding: const EdgeInsets.all(5.0),
-                               child: Row(
-                                 children: [
-                                 //  Container(
-                                 //    height: 170,
-                                 //    width:  110,
-                                 //   decoration: BoxDecoration(
-                                 //       borderRadius: BorderRadius.circular(0),
-                                 //       image: ,
-                                 //       border: Border.all(
-                                 //         color: const Color(0xffffffff),
-                                 //         width: 2.0,
-                                 //         style: BorderStyle.solid,
-                                 //         strokeAlign: BorderSide.strokeAlignCenter,
-                                 //       )
-                                 //   ),
-                                 //   child: Image.network(
-                                 //     '$imageUrl${data[index].posterPath}',
-                                 //     fit: BoxFit.fitHeight,
-                                 //   ),
-                                 // ),
-                                   CachedNetworkImage(
-                                     imageUrl: "$imageUrl${data[index].posterPath}",
-                                     imageBuilder: (context, imageProvider) => Container(
-                                       height: 170,
-                                       width: 110,
-                                       decoration: BoxDecoration(
-                                         borderRadius: const BorderRadius.all(Radius.circular(10),),
-                                         image: DecorationImage(
-                                           image: imageProvider,
-                                           fit: BoxFit.cover,
+                               child: InkWell(
+                                 onTap: () {
+                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MoviedetailScreen(movieId: data[index].id)));
+                                 },
+                                 child: Padding(
+                                   padding: const EdgeInsets.only(left: 10.0),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     children: [
+                                       CachedNetworkImage(
+                                         imageUrl: "$imageUrl${data[index].posterPath}",
+                                         imageBuilder: (context, imageProvider) => Container(
+                                           height: 170,
+                                           width: 110,
+                                           decoration: BoxDecoration(
+                                             borderRadius: const BorderRadius.all(Radius.circular(10),),
+                                             image: DecorationImage(
+                                               image: imageProvider,
+                                               fit: BoxFit.cover,
+                                             ),
+                                           ),
                                          ),
                                        ),
-                                     ),
+                                      const SizedBox(width: 10.0,),
+                                      Text(snapshot.data!.results[index].originalTitle)
+                                     ]
                                    ),
-                                  const SizedBox(width: 10.0,),
-                                  Text(snapshot.data!.results[index].originalTitle)
-                                 ]
+                                 ),
                                ),
                              );
                            },

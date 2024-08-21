@@ -60,7 +60,9 @@ class _SearchScreenState extends State<SearchScreen> {
                    padding: const EdgeInsets.all(10.0),
                    child: SearchBar(
                      controller: searchControlller,
-                     leading: const Icon(Icons.search, color: Colors.white),
+                     hintText: 'Search Movies',
+                     hintStyle: WidgetStateProperty.all(const TextStyle(color: Colors.grey)),
+                     leading: const Icon(Icons.search, color: Colors.grey),
                      backgroundColor: WidgetStateProperty.all(Colors.grey.withOpacity(0.3)),
                      trailing: [
                        if (searchControlller.text.isNotEmpty)
@@ -69,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
                              searchControlller.clear();
                              setState(() {}); // Trigger a rebuild to hide the cancel button
                            },
-                           icon: const Icon(Icons.cancel, color: Colors.white),
+                           icon: const Icon(Icons.cancel, color: Colors.grey),
                          ),
                      ],
                      textStyle: WidgetStateProperty.all(const TextStyle(

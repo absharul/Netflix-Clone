@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:netlix_clone/Common/utils.dart';
+import 'package:netlix_clone/Model/moviedetailinfo_model.dart';
 import 'package:netlix_clone/Model/movierecommendation_model.dart';
 import 'package:netlix_clone/Model/searchmovie_model.dart';
 import 'package:netlix_clone/Model/topratedtvseries_model.dart';
+import 'package:netlix_clone/Model/tvdetailinfo_model.dart';
 import '../Model/upcoming_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,7 +79,6 @@ class ApiServices {
   }
 
   //recommendation model
-
   Future<MovieRecommendationModel> getRecommedationMovies() async {
     try {
       endPoint = "movie/792307/recommendations";
@@ -100,7 +101,6 @@ class ApiServices {
   }
 
   //search Movies
-
   Future<SearchMovieModel?> searchMovies(String searchText) async {
     try {
       endPoint = "search/movie?query=$searchText";
@@ -118,6 +118,54 @@ class ApiServices {
         return SearchMovieModel.fromJson(jsonResponse);
       } else {
         throw Exception("Failed to load Search Movies: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      debugPrint("Error occurred: $e");
+      return null;
+    }
+  }
+
+  Future<MovieDetailInfo?> getDetailmovieinfo(int movieid) async {
+    try {
+      endPoint = "movie/$movieid";
+      final url = "$baseUrl$endPoint";
+      debugPrint(url);
+      final response = await http.get(Uri.parse(url),
+          headers: {
+            'Authorization': "Bearer $barerToken",
+          });
+
+      if (response.statusCode == 200) {
+        debugPrint("Success");
+        final jsonResponse = jsonDecode(response.body);
+        // debugPrint("API Response: $jsonResponse"); // Print the response for debugging
+        return MovieDetailInfo.fromJson(jsonResponse);
+      } else {
+        throw Exception("Failed to load Search Movies: ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      debugPrint("Error occurred: $e");
+      return null;
+    }
+  }
+
+  Future<TvShowDetailInfo?> getDetailTVnfo(int tvshowid) async {
+    try {
+      endPoint = "tv/$tvshowid";
+      final url = "$baseUrl$endPoint";
+      debugPrint(url);
+      final response = await http.get(Uri.parse(url),
+          headers: {
+            'Authorization': "Bearer $barerToken",
+          });
+
+      if (response.statusCode == 200) {
+        debugPrint("Success");
+        final jsonResponse = jsonDecode(response.body);
+        // debugPrint("API Response: $jsonResponse"); // Print the response for debugging
+        return TvShowDetailInfo.fromJson(jsonResponse);
+      } else {
+        throw Exception("Failed to load tv show: ${response.reasonPhrase}");
       }
     } catch (e) {
       debugPrint("Error occurred: $e");

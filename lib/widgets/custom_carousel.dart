@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:netlix_clone/Common/utils.dart';
 import 'package:netlix_clone/Model/topratedtvseries_model.dart';
+import 'package:netlix_clone/widgets/moviedetail_screen.dart';
+import 'package:netlix_clone/widgets/tvdetail_widget.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
   final TopRatedTvSeries data;
@@ -21,6 +24,9 @@ class CustomCarouselSlider extends StatelessWidget {
            var url = data.results[index].backdropPath.toString();
 
            return GestureDetector(
+             onTap: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context) => TvdetailWidget(tvshowid: data.results[index].id)));
+             },
              child:
              Column(
                crossAxisAlignment: CrossAxisAlignment.center,
