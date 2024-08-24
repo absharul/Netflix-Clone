@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:netlix_clone/Model/tvdetailinfo_model.dart';
 
 import '../Common/utils.dart';
-import '../Model/moviedetailinfo_model.dart';
 import '../Services/app_services.dart';
 
 class TvdetailWidget extends StatefulWidget {

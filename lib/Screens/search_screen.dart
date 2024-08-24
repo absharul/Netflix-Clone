@@ -8,6 +8,7 @@ import 'package:netlix_clone/Common/utils.dart';
 import 'package:netlix_clone/Model/movierecommendation_model.dart';
 import 'package:netlix_clone/Model/searchmovie_model.dart';
 import 'package:netlix_clone/Services/app_services.dart';
+import 'package:netlix_clone/widgets/moviedetail_screen.dart';
 import 'package:netlix_clone/widgets/recommedation_movies.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -101,45 +102,50 @@ class _SearchScreenState extends State<SearchScreen> {
                      ),
                      itemBuilder: (context, index){
                        final movie = searchMovieModel!.results[index];
-                       return Column(
-                         crossAxisAlignment: CrossAxisAlignment.center,
-                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          searchMovieModel!.results[index].backdropPath == null ?
-                              Image.asset("assets/netflix_logo.jpg",)
-                          :   CachedNetworkImage(
-                              imageUrl: "$imageUrl${movie.backdropPath}",
-                              imageBuilder: (context, imageProvider) => Container(
-                              height: 100,
-                              width: 180,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(10),),
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
+                       return InkWell(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => MoviedetailScreen(movieId: searchMovieModel!.results[index].id)));
+                         },
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.center,
+                           mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            searchMovieModel!.results[index].backdropPath == null ?
+                                Image.asset("assets/netflix_logo.jpg",)
+                            :   CachedNetworkImage(
+                                imageUrl: "$imageUrl${movie.backdropPath}",
+                                imageBuilder: (context, imageProvider) => Container(
+                                height: 100,
+                                width: 180,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10),),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(),
-                              ) ,
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                                color: Colors.red,
+                                placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ) ,
+                                errorWidget: (context, url, error) => const Icon(
+                                  Icons.error,
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                          const SizedBox(height: 5.0,),
-                          SizedBox(
-                            width: 100,
-                            child: Text(
-                              movie.originalTitle,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          )
-                        ],
-                      );
+                            const SizedBox(height: 5.0,),
+                            SizedBox(
+                              width: 100,
+                              child: Text(
+                                movie.originalTitle,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            )
+                          ],
+                                               ),
+                       );
                      }),
                   ],
               ),

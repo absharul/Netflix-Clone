@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netlix_clone/Screens/home_screen.dart';
-import 'package:netlix_clone/Screens/more_screen.dart';
+import 'package:netlix_clone/Screens/new_and_hot_screen.dart';
 import 'package:netlix_clone/Screens/search_screen.dart';
 
 class BottomNavbar extends StatelessWidget {
